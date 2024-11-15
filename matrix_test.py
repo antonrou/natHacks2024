@@ -1,8 +1,7 @@
 import numpy as np
 
-rows = 8
-columns = 256
-
-random_matrix = np.random.uniform(-100, 100, size = (rows, columns))
-
-print(random_matrix)
+def random_matrix():
+    rows = 8
+    columns = 256
+    matrix = np.random.uniform(50, 100, size = (rows, columns))
+    return matrix

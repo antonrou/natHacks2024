@@ -7,7 +7,7 @@ def data_stream():
     board = BoardShim(BoardIds.MUSE_2_BOARD, params)
     board.prepare_session()
     board.start_stream()
-    n = 1 #length of time to collect data for in seconds
+    n = 10 #length of time to collect data for in seconds
     time.sleep(n) #collect data for n seconds
     data = board.get_board_data() #data is a numpy 2D array of size num_channels x num_samples.
     print(data.shape) #prints (num_channels, num_samples). Each channel is a different sensor on the Muse 2, the num_samples is the number of samples collected over n seconds
