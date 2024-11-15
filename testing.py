@@ -1,6 +1,6 @@
 import dataTransform
 import ogData_streaming
 
-data_stream = ogData_streaming()
+data_stream = ogData_streaming.data_stream()
 
-dataTransform.data_transform_realtime(data_stream, n_seconds=10, threshold=0.5)
+dataTransform.data_transform(data_stream)
