@@ -1,9 +1,8 @@
-import dataTransform
-from dataStreaming import DataStream
+import numpy as np
 
-# Initialize the data stream with the correct sampling rate
-sampling_rate = 256  # Example sampling rate, adjust as needed
-data_stream = DataStream(sampling_rate=sampling_rate)
+rows = 8
+columns = 256
 
-# Call the data_transform_realtime function with the data stream
-dataTransform.data_transform_realtime(data_stream, threshold=0.5)
+random_matrix = np.random.uniform(-100, 100, size = (rows, columns))
+
+print(random_matrix)
