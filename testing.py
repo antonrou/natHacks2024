@@ -1,12 +1,44 @@
-import dataTransform
+# import dataTransform
+import MAGA
+import numpy as np
+
+import matplotlib.pyplot as plt
 from matrix_test import random_matrix
+from ogData_streaming import data_prepare, data_stream, data_cleanup, stream_length
 
-#data_stream = ogData_streaming.data_stream()
-filtered_data = dataTransform.data_transform(random_matrix())
+def plot_frequency_bands(filtered_data):
+    """
+    Plot the frequency bands using matplotlib.
+    
+    Args:
+        filtered_data: dict of filtered data in different frequency bands
+    """
+    bands = list(filtered_data.keys())
+    values = [np.mean(v) if isinstance(v, (list, np.ndarray)) else v for v in filtered_data.values()]
 
-#for key in filtered_data:
-print(filtered_data['delta'])
+    plt.figure(figsize=(10, 6))
+    plt.bar(bands, values, color=['b', 'g', 'r', 'c', 'm'])
+    plt.xlabel('Frequency Bands')
+    plt.ylabel('Average Frequency')
+    plt.title('Average Frequency in Different EEG Bands')
+    plt.show()
 
-# test with a sample matrix
+def main():
+    timeElapsed = 0
+    totalTime = 120 #length of time to collect data for in seconds
 
-# dataTransform.data_transform(data_stream)
+    board = data_prepare()
+    while timeElapsed < totalTime:
+        someData = data_stream(board, stream_length)
+        filtered_data = MAGA.data_transform(someData)
+
+        for key in filtered_data:
+            print(key, ": ", filtered_data[key])
+
+        plot_frequency_bands(filtered_data)
+
+        timeElapsed += stream_length
+    data_cleanup()
+
+if __name__ == "__main__":
+    main()

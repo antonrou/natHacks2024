@@ -47,28 +47,50 @@ def data_transform(data, fs=256):
     gamma_mask = (freqs >= gamma_low) & (freqs <= gamma_high)
     
     # Filter data for each band
-    temp = np.real(np.fft.ifft(fft_data * gamma_mask))
+    filtered_data = {}
+    temp = freqs * delta_mask
     sum = 0
     count = 0
-    for row in temp:
-        for element in row:
-            if element != 0:
-                sum += element
-                count += 1
-    filtered_data = {}
-    print(sum/count)
-    print("Sum: ", sum)
-    print("Count: ", count)
+    for element in temp:
+        if element != 0:
+            sum += element
+            count += 1
     filtered_data['delta'] = sum/count
 
-""""
-    filtered_data = {
-        'theta': np.real(np.fft.ifft(fft_data * theta_mask)),
-        'alpha': np.real(np.fft.ifft(fft_data * alpha_mask)),
-        'beta': np.real(np.fft.ifft(fft_data * beta_mask)),
-        'gamma': np.real(np.fft.ifft(fft_data * gamma_mask))
-    }
-    
-    return filtered_data
+    temp = freqs * gamma_mask
+    sum = 0
+    count = 0
+    for element in temp:
+        if element != 0:
+            sum += element
+            count += 1
+    filtered_data['gamma'] = sum/count
 
-    """
+    temp = freqs * theta_mask
+    sum = 0
+    count = 0
+    for element in temp:
+        if element != 0:
+            sum += element
+            count += 1
+    filtered_data['theta'] = sum/count
+
+    temp = freqs * alpha_mask
+    sum = 0
+    count = 0
+    for element in temp:
+        if element != 0:
+            sum += element
+            count += 1
+    filtered_data['alpha'] = sum/count
+
+    temp = freqs * beta_mask
+    sum = 0
+    count = 0
+    for element in temp:
+        if element != 0:
+            sum += element
+            count += 1
+    filtered_data['beta'] = sum/count
+
+    return filtered_data
