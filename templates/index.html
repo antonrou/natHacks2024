@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer with Muse 2</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #timer { font-size: 48px; margin: 20px; }
+        #message { color: red; font-size: 24px; }
+        button { padding: 10px 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Pomodoro Timer with Muse 2</h1>
+    <div id="timer">25:00</div>
+    <div id="message"></div>
+    <button onclick="connectMuse()">Connect Muse 2</button>
+    <button onclick="startSession()">Start Session</button>
+    <button onclick="endSession()">End Session</button>
+
+    <script>
+        let timer;
+        let timeLeft = 25 * 60; // 25 minutes
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            if (timeLeft > 0) {
+                timeLeft--;
+                checkFocus();
+            } else {
+                clearInterval(timer);
+                alert('Session ended!');
+            }
+        }
+
+        function connectMuse() {
+            fetch('/connect_muse', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status) {
+                        console.log(data.status);
+                    } else {
+                        console.error(data.error);
+                    }
+                });
+        }
+
+        function startSession() {
+            fetch('/start_session', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => console.log(data.status));
+            timeLeft = 25 * 60; // Reset to 25 minutes
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function endSession() {
+            fetch('/end_session', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => console.log(data.status));
+            clearInterval(timer);
+            document.getElementById('timer').textContent = '25:00';
+            document.getElementById('message').textContent = '';
+        }
+
+        function checkFocus() {
+    fetch('/brainwave_data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error("Error fetching brainwave data:", data.error);
+            document.getElementById('message').textContent = "Error retrieving brainwave data.";
+        } else if (!data.focus) {
+            document.getElementById('message').textContent = "You're not focused. Time for a break!";
+        } else {
+            document.getElementById('message').textContent = '';
+        }
+    })
+    .catch(error => {
+        console.error("Error with fetch request:", error);
+        document.getElementById('message').textContent = "Error communicating with the server.";
+    });
+}
+
+    </script>
+</body>
+</html> 
