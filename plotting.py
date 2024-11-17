@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from MAGA import data_transform
+from data_transform import data_transform
 
 
 
