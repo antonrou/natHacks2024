@@ -1,14 +1,14 @@
-# natHacks2024 – Muse 2 Pomodoro Focus Monitor
+# natHacks2024 – Muse 2 Pomodoro Focus Monitor 🧠⏲️
 
 This project was created during the natHacks 2024 hackathon. It is a web-based Pomodoro timer that uses a Muse 2 EEG headband to monitor your concentration levels while studying.
 
-## Features
+## Features ✨
 
 - **Real-time focus monitoring:** Detects when you are distracted or focused using brainwave data from the Muse 2.
 - **Pomodoro timer:** Standard 25-minute study sessions with break reminders.
 - **Visual feedback:** See your brainwave frequency bands and get alerts if you lose focus.
 
-## How to Run
+## How to Run 🚀
 
 1. **Install dependencies**
    ```zsh
@@ -31,7 +31,7 @@ This project was created during the natHacks 2024 hackathon. It is a web-based P
    - Click "Start Session" to begin a Pomodoro session.
    - The app will alert you if you lose focus.
 
-## Project Structure
+## Project Structure 🗂️
 
 - `app.py` – Main Flask web server
 - `data_streaming.py` – Handles Muse 2 data collection
@@ -40,7 +40,7 @@ This project was created during the natHacks 2024 hackathon. It is a web-based P
 - `focus_monitor.py` – Focus monitoring logic
 - `templates/index.html` – Web interface
 
-## Requirements
+## Requirements 📋
 
 - Python 3.11+
 - Muse 2 EEG headband
@@ -48,7 +48,7 @@ This project was created during the natHacks 2024 hackathon. It is a web-based P
 
 ---
 
-## About This Project
+## About This Project 🏆
 
 Developed during the natHacks 2024 neurotech hackathon, this project is a personalized Pomodoro focus timer powered by EEG. The timer analyzes real-time brainwave data to assess concentration levels and dynamically adjusts work and break intervals for optimal productivity.
 
@@ -64,11 +64,11 @@ Developed during the natHacks 2024 neurotech hackathon, this project is a person
 - Developed signal analysis algorithms using FFTs to detect focus patterns.
 - Collaborated on the design and implementation of the web interface and personalized break logic.
 
-**Authors:**
+**Authors:** 👥
 - Anton Roupassov-Ruiz
 - Ali Senol
 - Willy Zuo
 - Advi Islam
 - Arno Xu
 
-Created at natHacks 2024.
+Created at natHacks 2024. 🎉
